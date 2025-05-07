@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Main {
-    static final String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+    private static final String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     public static void main(String[] args) {
         final Random rand = new Random();
         StringBuilder currentWord;
@@ -34,7 +34,12 @@ public class Main {
         int vowelCount = 0;
 
         for(char currentChar: halfWord.toCharArray()){
-            for(char vowel:vowels){if(currentChar==vowel){hasVowel = true;}}
+            for(char vowel:vowels){
+                if (currentChar == vowel) {
+                    hasVowel = true;
+                    break;
+                }
+            }
         }
 
         for(char currentChar:word.toCharArray()){
