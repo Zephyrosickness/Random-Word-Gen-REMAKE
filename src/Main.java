@@ -10,28 +10,52 @@ public class Main {
         do {
             final int wordLength = InputHelper.getInt("What do you want the length of the word to be?");
 
+            int vowelLength = InputHelper.getInt("How many vowels do you want the word to have? (Type 0 for any)");
+            if(vowelLength<=0){vowelLength=1;}
+
             do {
                 currentWord = new StringBuilder();
                 for (int i = 0; i < wordLength; i++) {
-
                     currentWord.append(alphabet[rand.nextInt(alphabet.length)]);
-
                 }
 
-            }while(!hasVowelCheck(currentWord.toString()));
+            }while(!(hasVowelCheck(currentWord.toString(),vowelLength)&&!hasUncommonLetterCheck(currentWord.toString())));
 
             System.out.println("[WORD]: "+currentWord);
 
             keepGoing = InputHelper.getYN("Do you want to generate another word?");
-        }while (keepGoing);
+        }while(keepGoing);
     }
 
-    private static boolean hasVowelCheck(String word){
+    private static boolean hasVowelCheck(String word, int targetVowelCount){
+        final String halfWord = word.substring(0, word.length()/2); //cut halfWord in half because there should be a vowel in the first half
         final char[] vowels = {'a','e','i','o','u'};
+        final char[] halfWordAsList = halfWord.toCharArray();
+
+        boolean hasVowel = false;
+        int vowelCount = 0;
+
+        for(char currentChar: halfWordAsList){
+            for(char vowel:vowels){if(currentChar==vowel){hasVowel = true;}}
+        }
+
+        for(char currentChar:word.toCharArray()){
+            for(char vowel:vowels){
+                if(currentChar==vowel){
+                    vowelCount++;
+                }
+            }
+        }
+
+        return hasVowel&&vowelCount>=targetVowelCount;
+    }
+
+    private static boolean hasUncommonLetterCheck(String word){
+        final char[] uncommon = {'q','x','j','z','v'};
         final char[] wordAsList = word.toCharArray();
 
         for(char currentChar:wordAsList){
-            for(char vowel:vowels){if(currentChar==vowel){return true;}}
+            for(char uncommonLetter : uncommon){if(currentChar==uncommonLetter){return true;}}
         }
 
         return false;
