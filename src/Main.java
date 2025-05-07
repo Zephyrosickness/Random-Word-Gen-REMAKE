@@ -8,10 +8,9 @@ public class Main {
         boolean keepGoing;
 
         do {
-            final int wordLength = InputHelper.getInt("What do you want the length of the word to be?");
+            final int wordLength = InputHelper.getPositiveInt("What do you want the length of the word to be?");
 
-            int vowelLength = InputHelper.getInt("How many vowels do you want the word to have? (Type 0 for any)");
-            if(vowelLength<=0){vowelLength=1;}
+            final int vowelLength = InputHelper.getRangedInt("How many vowels do you want the word to have? (Type 0 for any)",0);
 
             do {
                 currentWord = new StringBuilder();
@@ -28,14 +27,13 @@ public class Main {
     }
 
     private static boolean hasVowelCheck(String word, int targetVowelCount){
-        final String halfWord = word.substring(0, word.length()/2); //cut halfWord in half because there should be a vowel in the first half
+        final String halfWord = word.substring(0, word.length()/2); //cut word in half because there should be a vowel in the first half
         final char[] vowels = {'a','e','i','o','u'};
-        final char[] halfWordAsList = halfWord.toCharArray();
 
         boolean hasVowel = false;
         int vowelCount = 0;
 
-        for(char currentChar: halfWordAsList){
+        for(char currentChar: halfWord.toCharArray()){
             for(char vowel:vowels){if(currentChar==vowel){hasVowel = true;}}
         }
 

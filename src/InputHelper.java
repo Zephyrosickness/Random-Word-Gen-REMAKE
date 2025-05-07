@@ -69,6 +69,29 @@ public class InputHelper {
     }
 
 
+    public static int getRangedInt(final String message, final int MIN){
+        Scanner scan = new Scanner(System.in);
+        int input;
+        final String bounds = " [MIN: "+MIN+"]"; //is appended to the end of any statements when the user enters invalid nums. example: "Invalid Input. Try again. [MIN: 0 MAX: 300]
+        System.out.println(message+bounds);
+
+
+        do{
+            if(scan.hasNextInt()) {
+                input = scan.nextInt();
+                if (input>=MIN) {break; //when input meets reqs
+
+                }else{System.out.println("Please enter a positive, non-zero integer value."+bounds);} //if input is an int, but is 0 or lower
+
+            }else{System.out.println("Invalid input. Try again."+bounds);} //if input is not int
+
+            scan.nextLine();
+        }while(true);
+
+        return input;
+    }
+
+
 
     //[[[---DOUBLES---]]]
 
